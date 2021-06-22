@@ -2,6 +2,9 @@ pipeline {
     agent {
         docker { image 'zenika/alpine-chrome:with-node' }
     }
+    options {
+        buildDiscarder logRotator(daysToKeepStr: '5', numToKeepStr: '5')
+    }
     stages {
         stage('check npm version') {
             steps {
