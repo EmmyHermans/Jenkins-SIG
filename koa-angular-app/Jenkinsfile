@@ -1,0 +1,50 @@
+pipeline {
+    agent {
+        docker { image 'zenika/alpine-chrome:with-node' }
+    }
+    stages {
+        stage('check npm version') {
+            steps {
+                sh 'npm -v'
+            }
+        }
+        stage('Git pull') {
+          steps {
+            git branch: 'main', url: 'https://github.com/EmmyHermans/Jenkins-SIG'
+          }
+        }
+        stage('Install frontend dependencies') {
+            steps {
+                sh 'cd koa-angular-app/angular-frontend && npm ci'
+                echo "installed frontend end"
+            }
+        }
+        stage('Test frontend') {
+            steps {
+                sh 'cd koa-angular-app/angular-frontend && npm run test:ci'
+                echo "Tested frontend end"
+            }
+        }
+        stage('Install backend dependencies') {
+            steps {
+                dir('koa-angular-app/koa-backend') {
+                    sh 'npm ci'
+                    echo "installed backend end"
+                }
+            }
+        }
+        stage('Test backend') {
+            steps {
+                dir('koa-angular-app/koa-backend') {
+                    sh 'npm test'
+                    echo "Tested backend end"
+                }
+            }
+        }
+        stage('clean workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+    }
+}
