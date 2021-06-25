@@ -1,0 +1,46 @@
+version: "3.1"
+
+services:
+  jenkins-agent:
+    container_name: jenkins-agent
+    build: .
+    restart: always
+    networks:
+      - jenkins
+    ports:
+      - 8080:8080
+      - 50000:50000
+    tty: true
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - jenkins-docker-certs:/certs/client:ro
+      - C:/Users/EHERMAN91:/home
+    environment:
+      - DOCKER_HOST=tcp://docker:2376
+      - DOCKER_CERT_PATH=/certs/client
+      - DOCKER_TLS_VERIFY=1
+
+  dind:
+    container_name: docker-for-jenkins
+    image: docker:dind
+    privileged: true
+    restart: always
+    networks:
+      jenkins:
+        aliases:
+          - docker
+    ports:
+      - 2376:2376
+    tty: true
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - jenkins-docker-certs:/certs/client
+    environment:
+      - DOCKER_TLS_CERTDIR=/certs
+
+networks:
+  jenkins:
+
+volumes:
+  jenkins-data:
+  jenkins-docker-certs:
