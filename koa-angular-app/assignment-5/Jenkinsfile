@@ -47,25 +47,29 @@ pipeline {
                 }
             }
         }
-        stage('Build') {
-            steps {
-                sh 'cd koa-angular-app/angular-frontend && npm run build'
-                echo "build frontend"
-                sh 'cd koa-angular-app/koa-backend/src && mkdir -p public'
-                sh "cd koa-angular-app && rm -rf ./koa-backend/src/public"
-                sh 'cd koa-angular-app && mv -f ./angular-frontend/dist/angular-frontend ./koa-backend/src/public'
-                sh 'cd koa-angular-app/koa-backend && npm NODE_ENV=production node src/server.js'
-            }
-        }
+        // stage('Build') {
+        //     steps {
+        //         sh 'cd koa-angular-app/angular-frontend && npm run build'
+        //         echo "build frontend"
+        //         sh 'cd koa-angular-app/koa-backend/src && mkdir -p public'
+        //         sh "cd koa-angular-app && rm -rf ./koa-backend/src/public"
+        //         sh 'cd koa-angular-app && mv -f ./angular-frontend/dist/angular-frontend ./koa-backend/src/public'
+        //         sh 'cd koa-angular-app/koa-backend && npm run start:prod'
+        //     }
+        // }
         stage('Deliver') {
             steps {
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
             }
         }
-        stage('clean workspace') {
-            steps {
-                cleanWs()
-            }
+    }
+    post {
+        always {
+            echo 'Always clean the workspace'
+            cleanWs() 
+        }
+        failure {
+            echo 'I failed :('
         }
     }
 }

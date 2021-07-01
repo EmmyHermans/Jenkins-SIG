@@ -57,7 +57,7 @@ describe('MoviesComponent', () => {
     expect(component.dataSource.data).toEqual(movies);
   }));
 
-  xit('should fail this test', () => {
+  it('should fail this test', () => {
     expect(true).toBe(false);
   });
 });
