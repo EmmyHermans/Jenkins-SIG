@@ -32,7 +32,7 @@ pipeline {
             steps {
                 sh 'cd koa-angular-app/angular-frontend && npm run build'
                 echo "build frontend"
-                sh 'cd koa-angular-app/koa-backend/src && mkdir public'
+                sh 'cd koa-angular-app/koa-backend/src && mkdir -p public'
                 sh 'cd koa-angular-app && mv -f ./angular-frontend/dist/angular-frontend ./koa-backend/src/public'
             }
         }
