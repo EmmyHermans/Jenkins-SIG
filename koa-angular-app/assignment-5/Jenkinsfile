@@ -33,7 +33,7 @@ pipeline {
                 sh 'cd koa-angular-app/angular-frontend && npm run build'
                 echo "build frontend"
                 sh 'cd koa-angular-app/koa-backend/src && mkdir public'
-                sh 'cd koa-angular-app/koa-backend/src/public && xcopy ../../../angular-frontend/dist/angular-frontend'
+                sh 'cd koa-angular-app && mv -f ./angular-frontend/dist/angular-frontend ./koa-backend/src/public'
             }
         }
         stage('Install backend dependencies') {
