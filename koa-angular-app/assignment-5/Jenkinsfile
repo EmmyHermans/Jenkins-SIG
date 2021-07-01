@@ -28,6 +28,12 @@ pipeline {
                 echo "Tested frontend end"
             }
         }
+        stage('Build frontend') {
+            steps {
+                sh 'cd koa-angular-app/angular-frontend && npm run build'
+                echo "build frontend"
+            }
+        }
         stage('Install backend dependencies') {
             steps {
                 dir('koa-angular-app/koa-backend') {
