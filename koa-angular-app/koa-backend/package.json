@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/server.js",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "start-prod": "NODE_ENV=production node src/server.js"
   },
   "keywords": [],
   "author": "",
