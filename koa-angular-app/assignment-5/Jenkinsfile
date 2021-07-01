@@ -1,6 +1,9 @@
 pipeline {
     agent {
-        docker { image 'zenika/alpine-chrome:with-node', args '-p 3100:3100' }
+        docker { 
+            image 'zenika/alpine-chrome:with-node'
+            args '-p 3100:3100' 
+        }
     }
     options {
         buildDiscarder logRotator(daysToKeepStr: '5', numToKeepStr: '5')
