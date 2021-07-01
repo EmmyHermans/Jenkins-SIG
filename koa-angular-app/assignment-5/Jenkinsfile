@@ -52,9 +52,6 @@ pipeline {
                 }
             }
         }
-        stage('Build backend') {
-
-        }
         stage('clean workspace') {
             steps {
                 cleanWs()
