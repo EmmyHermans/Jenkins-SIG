@@ -54,7 +54,7 @@ pipeline {
                 sh 'cd koa-angular-app/koa-backend/src && mkdir -p public'
                 sh "cd koa-angular-app && rm -rf ./koa-backend/src/public"
                 sh 'cd koa-angular-app && mv -f ./angular-frontend/dist/angular-frontend ./koa-backend/src/public'
-                sh 'cd koa-angular-app/koa-backend && npm run start:prod'
+                sh 'cd koa-angular-app/koa-backend && npm NODE_ENV=production node src/server.js'
             }
         }
         stage('Deliver') {
