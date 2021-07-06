@@ -59,7 +59,7 @@ pipeline {
         stage('Deliver') {
             steps {
                 sh '''set -x
-                cd koa-angular-app/koa-backend && npm run start:prod &
+                cd koa-angular-app/koa-backend && npm run bla &
                 sleep 1
                 echo $! > koa-angular-app/koa-backend/.pidfile
                 set +x
