@@ -5,6 +5,9 @@ pipeline {
             args '-p 3100:3100' 
         }
     }
+    environment {
+        FRONTEND_DIR = 'koa-angular-app/angular-frontend'
+    }
     options {
         disableConcurrentBuilds()
         buildDiscarder(logRotator(daysToKeepStr: '5', numToKeepStr: '5'))
@@ -25,7 +28,7 @@ pipeline {
         }
         stage('Install frontend dependencies') {
             steps {
-                sh 'cd koa-angular-app/angular-frontend && npm ci'
+                sh 'cd $FRONTEND_DIR && npm ci'
                 echo "installed frontend end"
             }
         }
@@ -79,7 +82,7 @@ pipeline {
                 environment name: 'BUILD_NUMBER', value: '35'
             }
             steps {
-                echo "THIS IS BUILD 32!!!"
+                echo "THIS IS BUILD 35!!!"
             }
         }
     }
