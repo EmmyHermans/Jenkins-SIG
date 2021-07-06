@@ -9,7 +9,7 @@ pipeline {
         buildDiscarder(logRotator(daysToKeepStr: '5', numToKeepStr: '5'))
     }
     triggers { 
-        cron('* * * * *') 
+        pollSCM('* * * * *') 
     }
     stages {
         stage('check npm version') {
