@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Git pull') {
           steps {
-            git branch: 'any', url: '/home/Code/SIGs/jenkins/Jenkins-SIG'
+            git branch: 'main', url: '/home/Code/SIGs/jenkins/Jenkins-SIG'
           }
         }
         stage('Install frontend dependencies') {
@@ -71,12 +71,15 @@ pipeline {
                 sh 'kill $(cat koa-angular-app/koa-backend/.pidfile)'
             }
         }
-        stage('Only for develop') {
+        stage('Only for 32 build') {
+            environment {
+                BUILD_NUMBER = currentBuild.number
+            }
             when {
-                branch 'develop'
+                environment name: 'BUILD_NUMBER', value: '32'
             }
             steps {
-                echo "ONLY FOR DEVELOP!!!"
+                echo "THIS IS BUILD 32!!!"
             }
         }
     }
