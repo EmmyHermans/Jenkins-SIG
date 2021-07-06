@@ -71,6 +71,14 @@ pipeline {
                 sh 'kill $(cat koa-angular-app/koa-backend/.pidfile)'
             }
         }
+        stage('Only for develop') {
+            when {
+                branch 'develop'
+            }
+            steps {
+                echo "ONLY FOR DEVELOP!!"
+            }
+        }
     }
     post {
         always {
