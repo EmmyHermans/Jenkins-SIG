@@ -7,7 +7,7 @@
     "start": "node src/server.js",
     "test": "jest --coverage",
     "prod": "NODE_ENV=production node src/server.js",
-    "prod:win": "set NODE_ENV=production&& node src/server.js"
+    "local": "set NODE_ENV=production&& node src/server.js"
   },
   "keywords": [],
   "author": "",
