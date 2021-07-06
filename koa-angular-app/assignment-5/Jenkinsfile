@@ -7,6 +7,7 @@ pipeline {
     }
     environment {
         FRONTEND_DIR = 'koa-angular-app/angular-frontend'
+        BACKEND_DIR = 'koa-angular-app/koa-backend'
     }
     options {
         disableConcurrentBuilds()
@@ -34,13 +35,13 @@ pipeline {
         }
         stage('Test frontend') {
             steps {
-                sh 'cd koa-angular-app/angular-frontend && npm run test:ci'
+                sh 'cd $FRONTEND_DIR && npm run test:ci'
                 echo "Tested frontend end"
             }
         }
         stage('Install backend dependencies') {
             steps {
-                dir('koa-angular-app/koa-backend') {
+                dir('$BACKEND_DIR') {
                     sh 'npm ci'
                     echo "installed backend end"
                 }
@@ -48,7 +49,7 @@ pipeline {
         }
         stage('Test backend') {
             steps {
-                dir('koa-angular-app/koa-backend') {
+                dir('$BACKEND_DIR') {
                     sh 'npm test'
                     echo "Tested backend end"
                 }
@@ -68,13 +69,13 @@ pipeline {
         stage('Deliver') {
             steps {
                 sh '''set -x
-                cd koa-angular-app/koa-backend && npm run prod &
+                cd $BACKEND_DIR && npm run prod &
                 sleep 1
-                echo $! > koa-angular-app/koa-backend/.pidfile
+                echo $! > $BACKEND_DIR/.pidfile
                 set +x
                 echo \'Bezoek http://localhost:3100 om je Angular app te zien!\''''
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                sh 'kill $(cat koa-angular-app/koa-backend/.pidfile)'
+                sh 'kill $(cat $BACKEND_DIR/.pidfile)'
             }
         }
         stage('Only for 35th build') {
