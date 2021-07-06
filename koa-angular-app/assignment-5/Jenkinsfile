@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Git pull') {
           steps {
-            git branch: 'main', url: 'https://github.com/EmmyHermans/Jenkins-SIG'
+            git branch: 'any', url: 'https://github.com/EmmyHermans/Jenkins-SIG'
           }
         }
         stage('Install frontend dependencies') {
