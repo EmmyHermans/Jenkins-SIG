@@ -76,7 +76,7 @@ pipeline {
                 branch 'develop'
             }
             steps {
-                echo "ONLY FOR DEVELOP!!"
+                echo "ONLY FOR DEVELOP!!!"
             }
         }
     }
