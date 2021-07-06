@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node src/server.js",
     "test": "jest --coverage",
-    "start:prod-test": "set NODE_ENV=production&& node src/server.js",
-    "start:prod": "NODE_ENV=production node src/server.js"
+    "start:prod": "NODE_ENV=production node src/server.js",
+    "start:prod-test": "set NODE_ENV=production&& node src/server.js"
   },
   "keywords": [],
   "author": "",
