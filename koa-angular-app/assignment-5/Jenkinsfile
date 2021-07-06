@@ -53,11 +53,13 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'cd koa-angular-app/angular-frontend && npm run build'
-                echo "build frontend"
-                sh 'cd koa-angular-app/koa-backend/src && mkdir -p public'
-                sh "cd koa-angular-app && rm -rf ./koa-backend/src/public"
-                sh 'cd koa-angular-app && mv -f ./angular-frontend/dist/angular-frontend ./koa-backend/src/public'
+                dir('koa-angular-app') {
+                    sh 'cd angular-frontend && npm run build'
+                    echo "build frontend"
+                    sh 'cd koa-backend/src && mkdir -p public'
+                    sh "rm -rf ./koa-backend/src/public"
+                    sh 'mv -f ./angular-frontend/dist/angular-frontend ./koa-backend/src/public'
+                }
             }
         }
         stage('Deliver') {
