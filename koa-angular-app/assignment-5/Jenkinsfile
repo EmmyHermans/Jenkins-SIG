@@ -8,6 +8,9 @@ pipeline {
     options {
         buildDiscarder logRotator(daysToKeepStr: '5', numToKeepStr: '5')
     }
+    triggers { 
+        pollSCM('* * * * *') 
+    }
     stages {
         stage('check npm version') {
             steps {
@@ -59,7 +62,7 @@ pipeline {
         stage('Deliver') {
             steps {
                 sh '''set -x
-                cd koa-angular-app/koa-backend && npm run start &
+                cd koa-angular-app/koa-backend && npm run start-prod &
                 sleep 1
                 echo $! > koa-angular-app/koa-backend/.pidfile
                 set +x
