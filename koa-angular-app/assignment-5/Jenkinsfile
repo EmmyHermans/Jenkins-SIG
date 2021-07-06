@@ -71,10 +71,7 @@ pipeline {
                 sh 'kill $(cat koa-angular-app/koa-backend/.pidfile)'
             }
         }
-        stage('Only for 32 build') {
-            environment {
-                BUILD_NUMBER = currentBuild.number
-            }
+        stage('Only for 32nd build') {
             when {
                 environment name: 'BUILD_NUMBER', value: '32'
             }
