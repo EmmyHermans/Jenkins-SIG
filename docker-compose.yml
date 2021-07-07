@@ -10,7 +10,6 @@ services:
     ports:
       - 8080:8080
       - 50000:50000
-      - 3100:3100
     tty: true
     volumes:
       - jenkins-data:/var/jenkins_home
@@ -32,6 +31,7 @@ services:
           - docker
     ports:
       - 2376:2376
+      - 3100:3100
     tty: true
     volumes:
       - jenkins-data:/var/jenkins_home
